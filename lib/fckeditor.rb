@@ -28,6 +28,8 @@ module Fckeditor
       
       toolbarSet = options[:toolbarSet].nil? ? 'Default' : options[:toolbarSet]
       
+      enterMode = options[:enterMode].nil? ? 'p' : options[:enterMode]
+      
       if options[:ajax]
         inputs = "<input type='hidden' id='#{id}_hidden' name='#{object}[#{field}]'>\n" <<
                  "<textarea id='#{id}' #{cols} #{rows} name='#{id}'>#{value}</textarea>\n"
@@ -39,8 +41,9 @@ module Fckeditor
       base_path = "#{js_path}/fckeditor/"
       return inputs <<
         javascript_tag("var oFCKeditor = new FCKeditor('#{id}', '#{width}', '#{height}', '#{toolbarSet}');\n" <<
-                       "oFCKeditor.BasePath = \"#{base_path}\"\n" <<
-                       "oFCKeditor.Config['CustomConfigurationsPath'] = '#{js_path}/fckcustom.js';\n" <<
+                       "oFCKeditor.Config['EnterMode'] = '#{enterMode}';\n" <<
+                       "oFCKeditor.BasePath = \"#{base_path}\";\n" <<
+                       "oFCKeditor.Config['CustomConfigurationsPath'] = '#{js_path}/fckcustom.js';\n" <<                       
                        "oFCKeditor.ReplaceTextarea();\n")
     end
     
